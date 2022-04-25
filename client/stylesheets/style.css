@@ -59,3 +59,50 @@ html, body {
     vertical-align: middle;
     padding: 5px;
 }
+
+main {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex: 1 1 auto;
+}
+
+footer {
+    text-align: center;
+}
+
+.footer-container {
+    background: #77A8A3;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer-logo {
+    flex-basis: 25%;
+    padding-top: 10px;
+}
+
+.footer-information {
+    flex-basis: 20%;
+}
+
+.footer-container h3 {
+    font-size: 130%;
+}
+
+.footer-sitemap li{
+    font-size: 110%;
+}
+
+.footer-sitemap a:visited{
+    color: red;
+}
+
+.footer-sitemap a{
+    color: rgb(0, 13, 255);
+}
+
+.footer-social-networks {
+    flex-basis: 30%;
+}
