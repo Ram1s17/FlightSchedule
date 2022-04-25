@@ -37,10 +37,35 @@ var tabsFormation = function() {
     });
 }
 
+var main = function () { 
+    "use strict";
+    $(".main-tabs-departure-and-arrival a").toArray().forEach(function (element) {
+	    $(element).on("click", function () {
+	        var $element = $(element);
+	        $(".main-tabs-departure-and-arrival div").removeClass("tab-active");
+	        $element.parent().addClass("tab-active");
+            return false;
+	    });
+    });
+    $(".main-tabs-departure-and-arrival a.tab-active").trigger("click");
+    $(".main-tabs-items a span").toArray().forEach(function (tabElement) {
+        $(tabElement).on("click", function () {
+            var $tabElement = $(tabElement);
+            $(".main-tabs-items a span").removeClass("active");
+            $(".main-tabs-items a").removeClass("active");
+            $tabElement.parent().addClass("active"); 
+            $tabElement.addClass("active");
+            currentTabText = $tabElement.text();
+            return false;
+        });
+    });
+    $(".main-tabs-items a span.active").trigger("click");  
+};
+
 $(document).ready(function () {
 	$.getJSON("/data.json", function (tabObjects) { 
         tabContent = tabObjects;
         tabsFormation();
-        console.log(tabContent);
+        main();
 	}); 
 });

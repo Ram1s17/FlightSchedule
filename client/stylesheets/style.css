@@ -154,6 +154,10 @@ main {
     border-radius: 10px 10px 10px 10px;
 }
 
+.main-tabs-items .active {
+    background-color: #1D323F;
+}
+
 .main-tabs-table-header {
     display: flex;
     justify-content: flex-start;
