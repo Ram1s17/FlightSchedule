@@ -3,7 +3,35 @@
   <head>
     <meta charset="utf-8">
     <title>Расписание авиарейсов</title>
+    <!--<link rel="stylesheet"  type="text/css"  href="stylesheets/reset.css">-->
+    <link rel="stylesheet"  type="text/css"  href="stylesheets/style.css">
+    <link rel="shortcut icon" href="img/airplane-flight.png" type="image/png">
   </head>
   <body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="header-container">
+                <div class="header-logo">
+                    <div class="header-img">
+                        <img src="img/flight.png">
+                    </div>
+                    <div class="header-banner">
+                        <h1>Расписание авиарейсов</h1>
+                    </div>
+                </div>
+                <form class="header-search">
+                    <div class="input-box">
+                        <input class="input-field" type="text" placeholder="Номер рейса, направление" value="">
+                    </div>
+                    <div class="input-button">
+                        <a class="open-popup" href="#"><img src="img/seo.png" width="65%"></a>
+                    </div>
+                </form>
+                <div class="header-clock">
+                    <iframe  frameborder="no" scrolling="no" width="280" height="150" src="https://yandex.ru/time/widget/?geoid=213&lang=ru&layout=horiz&type=digital&face=serif"></iframe>                
+                </div>
+            </div>
+        </header>
+    </div>
   </body>
 </html> 
