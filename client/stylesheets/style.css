@@ -66,6 +66,68 @@ main {
     flex: 1 1 auto;
 }
 
+.main-container {
+   text-align: center;
+}
+
+.main-tabs-and-filters {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.main-tabs-departure-and-arrival {
+    flex-basis: 40%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.tab-departure, .tab-arrival {
+    flex-basis: 50%;
+    padding: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #2D5D62;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.tab-departure {
+    border-style: solid none solid solid;
+}
+
+.tab-arrival {
+    border-style: solid solid solid solid;
+}
+.tab-departure a, .tab-arrival a{
+    font-size: 140%;
+    text-decoration: none;
+    color: white;
+}
+
+.main-filters {
+    padding-left: 10px;
+    padding-right: 10px;
+    flex-basis: 60%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.main-filters-banner, .main-filters-type, .main-filters-period {
+    padding-right: 20px;
+}
+
+.main-filters-banner h3 {
+    font-weight: normal;
+}
+
+#type-of-flight-select, #execution-period-select {
+    font-size: 105%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 footer {
     text-align: center;
 }
