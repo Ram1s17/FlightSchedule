@@ -2,7 +2,7 @@
 var currentDate = new Date;
 //словать вида: "День недели, число": "ГГГГ-ММ-ДД" 
 var datesDict = new Map();
-var currentTabText, tabContent;
+var currentTabText, currentDateTabText, tabContent;
 
 //функция получения даты в формате "ГГГГ-MM-ДД"
 var convertDateToString = function(date) {
@@ -37,17 +37,105 @@ var tabsFormation = function() {
     });
 }
 
+//функция формирования содержания вкладки
+var getFlightSchedule = function() {
+    $(".main-tabs-table-cells").remove();
+    //поиск нужного документа на заданную дату
+    var currentSchedule = null;
+    tabContent.forEach(function(tabObject){
+        if ((tabObject._id).split("T")[0] == datesDict.get(currentDateTabText)) {
+            currentSchedule = tabObject;
+        }
+    });
+    //заполнение расписания на странице данными
+    if (currentSchedule != null) {
+        var $main_tabs_table_cells;
+        var $type_of_flight_cell, $flight_direction_cell, $airline_cell, $flight_cell, 
+            $time_cell, $type_of_airplane_cell, $execution_period_cell;
+        if (currentTabText == "ВЫЛЕТ") {
+            $(".flight-direction-header b").text("Направление");
+            $(".time-header b").text("Время вылета");
+            (currentSchedule.departure).forEach(function(departureObject) {
+                $main_tabs_table_cells = $("<div class='main-tabs-table-cells'>");
+
+                $type_of_flight_cell = $("<div class='type-of-flight-cell'>");
+                $type_of_flight_cell.text(departureObject.type_of_flight);
+                $flight_direction_cell = $("<div class='flight-direction-cell'>");
+                $flight_direction_cell.text(departureObject.direction);
+                $airline_cell = $("<div class='airline-cell'>");
+                $airline_cell.text(departureObject.airline);
+                $flight_cell = $("<div class='flight-cell'>");
+                $flight_cell.text(departureObject.flight);
+                $time_cell = $("<div class='time-cell'>");
+                $time_cell.text(departureObject.departure_time.slice(11,16));
+                $type_of_airplane_cell = $("<div class='type-of-airplane-cell'>");
+                $type_of_airplane_cell.text(departureObject.type_of_airplane);
+                $execution_period_cell = $("<div class='execution-period-cell'>");
+                $execution_period_cell.text(departureObject.execution_period);
+
+                $main_tabs_table_cells.append($type_of_flight_cell);
+                $main_tabs_table_cells.append($flight_direction_cell);
+                $main_tabs_table_cells.append($airline_cell);
+                $main_tabs_table_cells.append($flight_cell);
+                $main_tabs_table_cells.append($time_cell);
+                $main_tabs_table_cells.append($type_of_airplane_cell);
+                $main_tabs_table_cells.append($execution_period_cell);
+                $(".main-container").append( $main_tabs_table_cells);
+            });
+        }
+        else {
+            $(".flight-direction-header b").text("Город вылета");
+            $(".time-header b").text("Время прилета");
+            $(".time-header b").text("Время вылета");
+            (currentSchedule.arrival).forEach(function(arrivalObject) {
+                $main_tabs_table_cells = $("<div class='main-tabs-table-cells'>");
+
+                $type_of_flight_cell = $("<div class='type-of-flight-cell'>");
+                $type_of_flight_cell.text(arrivalObject.type_of_flight);
+                $flight_direction_cell = $("<div class='flight-direction-cell'>");
+                $flight_direction_cell.text(arrivalObject.departure_city);
+                $airline_cell = $("<div class='airline-cell'>");
+                $airline_cell.text(arrivalObject.airline);
+                $flight_cell = $("<div class='flight-cell'>");
+                $flight_cell.text(arrivalObject.flight);
+                $time_cell = $("<div class='time-cell'>");
+                $time_cell.text(arrivalObject.arrival_time.slice(11,16));
+                $type_of_airplane_cell = $("<div class='type-of-airplane-cell'>");
+                $type_of_airplane_cell.text(arrivalObject.type_of_airplane);
+                $execution_period_cell = $("<div class='execution-period-cell'>");
+                $execution_period_cell.text(arrivalObject.execution_period);
+
+                $main_tabs_table_cells.append($type_of_flight_cell);
+                $main_tabs_table_cells.append($flight_direction_cell);
+                $main_tabs_table_cells.append($airline_cell);
+                $main_tabs_table_cells.append($flight_cell);
+                $main_tabs_table_cells.append($time_cell);
+                $main_tabs_table_cells.append($type_of_airplane_cell);
+                $main_tabs_table_cells.append($execution_period_cell);
+                $(".main-container").append( $main_tabs_table_cells);
+            });
+        }
+    }
+};
+
 var main = function () { 
     "use strict";
+    var flag = true;
     $(".main-tabs-departure-and-arrival a").toArray().forEach(function (element) {
-	    $(element).on("click", function () {
+        $(element).on("click", function () {
 	        var $element = $(element);
 	        $(".main-tabs-departure-and-arrival div").removeClass("tab-active");
 	        $element.parent().addClass("tab-active");
+            if ($(".tab-active a").text() == "ВЫЛЕТ") {
+                currentTabText = "ВЫЛЕТ";
+            }
+            else {
+                currentTabText = "ПРИЛЕТ";
+            }
+            $(".main-tabs-items a span.active").trigger("click"); 
             return false;
 	    });
     });
-    $(".main-tabs-departure-and-arrival a.tab-active").trigger("click");
     $(".main-tabs-items a span").toArray().forEach(function (tabElement) {
         $(tabElement).on("click", function () {
             var $tabElement = $(tabElement);
@@ -55,11 +143,15 @@ var main = function () {
             $(".main-tabs-items a").removeClass("active");
             $tabElement.parent().addClass("active"); 
             $tabElement.addClass("active");
-            currentTabText = $tabElement.text();
+            currentDateTabText = $tabElement.text();
+            getFlightSchedule();
             return false;
         });
-    });
-    $(".main-tabs-items a span.active").trigger("click");  
+        if (flag) {
+            $(".main-tabs-departure-and-arrival .tab-active a").trigger("click");
+            flag = false;
+        }
+    }); 
 };
 
 $(document).ready(function () {

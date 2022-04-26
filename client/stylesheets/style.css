@@ -175,7 +175,7 @@ main {
     font-style: solid;
 }
 
-.type-of-flight-header, .time-header, .flight-direction-header, .airline-header, .flight-header, .type-of-airplane {
+.type-of-flight-header, .time-header, .flight-direction-header, .airline-header, .flight-header, .type-of-airplane-header {
     border-style: none solid none none;
 }
 
