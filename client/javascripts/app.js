@@ -57,9 +57,9 @@ var getFlightSchedule = function() {
             $(".time-header b").text("Время вылета");
             (currentSchedule.departure).forEach(function(departureObject) {
                 $main_tabs_table_cells = $("<div class='main-tabs-table-cells'>");
-
                 $type_of_flight_cell = $("<div class='type-of-flight-cell'>");
                 $type_of_flight_cell.text(departureObject.type_of_flight);
+                $type_of_flight_cell.attr("type", departureObject.type_of_flight );
                 $flight_direction_cell = $("<div class='flight-direction-cell'>");
                 $flight_direction_cell.text(departureObject.direction);
                 $airline_cell = $("<div class='airline-cell'>");
@@ -72,7 +72,7 @@ var getFlightSchedule = function() {
                 $type_of_airplane_cell.text(departureObject.type_of_airplane);
                 $execution_period_cell = $("<div class='execution-period-cell'>");
                 $execution_period_cell.text(departureObject.execution_period);
-
+                $execution_period_cell.attr("period", departureObject.execution_period);
                 $main_tabs_table_cells.append($type_of_flight_cell);
                 $main_tabs_table_cells.append($flight_direction_cell);
                 $main_tabs_table_cells.append($airline_cell);
@@ -89,9 +89,9 @@ var getFlightSchedule = function() {
             $(".time-header b").text("Время вылета");
             (currentSchedule.arrival).forEach(function(arrivalObject) {
                 $main_tabs_table_cells = $("<div class='main-tabs-table-cells'>");
-
                 $type_of_flight_cell = $("<div class='type-of-flight-cell'>");
                 $type_of_flight_cell.text(arrivalObject.type_of_flight);
+                $type_of_flight_cell.attr("type", arrivalObject.type_of_flight );
                 $flight_direction_cell = $("<div class='flight-direction-cell'>");
                 $flight_direction_cell.text(arrivalObject.departure_city);
                 $airline_cell = $("<div class='airline-cell'>");
@@ -104,7 +104,7 @@ var getFlightSchedule = function() {
                 $type_of_airplane_cell.text(arrivalObject.type_of_airplane);
                 $execution_period_cell = $("<div class='execution-period-cell'>");
                 $execution_period_cell.text(arrivalObject.execution_period);
-
+                $execution_period_cell.attr("period", arrivalObject.execution_period);
                 $main_tabs_table_cells.append($type_of_flight_cell);
                 $main_tabs_table_cells.append($flight_direction_cell);
                 $main_tabs_table_cells.append($airline_cell);
@@ -118,9 +118,49 @@ var getFlightSchedule = function() {
     }
 };
 
+//функция отображения авиарейсов по выбранному типу или периоду
+var getFlightsByTypeAndPeriod = function() {
+    var $type_of_flight_selected_option;
+    $("#type-of-flight-select").change(function(){
+        $type_of_flight_selected_option = $("#type-of-flight-select option:selected");
+        $("#execution-period-select option[value='Все рейсы']").prop('selected', true);
+        if ($type_of_flight_selected_option.text() == "Все рейсы") {
+            getFlightSchedule();
+        }
+        else {
+            getFlightSchedule();
+            $(".type-of-flight-cell").toArray().forEach(function(cell){
+                if ($(cell).attr("type") != $type_of_flight_selected_option.text()) {
+                    $(cell).parent().remove();
+                }
+            });
+        }
+    });
+    var $execution_period_selected_option;
+    $("#execution-period-select").change(function(){
+        $execution_period_selected_option = $("#execution-period-select option:selected");
+        $("#type-of-flight-select option[value='Все рейсы']").prop('selected', true);
+        if ($execution_period_selected_option.text() == "Все рейсы") {
+            getFlightSchedule();
+        }
+        else {
+            getFlightSchedule();
+            $(".execution-period-cell").toArray().forEach(function(cell){
+                if ($(cell).attr("period") != $execution_period_selected_option.text()) {
+                    $(cell).parent().remove();
+                }
+            });
+        }
+    });
+}
+
 var main = function () { 
     "use strict";
     var flag = true;
+    $("#type-of-flight-select").attr("selected", null);
+    $("#type-of-flight-select option:nth-child(1)").attr("selected", "selected");
+    $("#execution-period-select").attr("selected", null);
+    $("#execution-period-select option:nth-child(1)").attr("selected", "selected");
     $(".main-tabs-departure-and-arrival a").toArray().forEach(function (element) {
         $(element).on("click", function () {
 	        var $element = $(element);
@@ -145,6 +185,7 @@ var main = function () {
             $tabElement.addClass("active");
             currentDateTabText = $tabElement.text();
             getFlightSchedule();
+            getFlightsByTypeAndPeriod();
             return false;
         });
         if (flag) {
