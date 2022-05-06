@@ -43,7 +43,7 @@ var getFlightSchedule = function() {
     //поиск нужного документа на заданную дату
     var currentSchedule = null;
     tabContent.forEach(function(tabObject){
-        if ((tabObject._id).split("T")[0] == datesDict.get(currentDateTabText)) {
+        if ((tabObject.date).split("T")[0] == datesDict.get(currentDateTabText)) {
             currentSchedule = tabObject;
         }
     });
@@ -86,7 +86,6 @@ var getFlightSchedule = function() {
         else {
             $(".flight-direction-header b").text("Город вылета");
             $(".time-header b").text("Время прилета");
-            $(".time-header b").text("Время вылета");
             (currentSchedule.arrival).forEach(function(arrivalObject) {
                 $main_tabs_table_cells = $("<div class='main-tabs-table-cells'>");
                 $type_of_flight_cell = $("<div class='type-of-flight-cell'>");
@@ -116,6 +115,16 @@ var getFlightSchedule = function() {
             });
         }
     }
+    else {
+        if (currentTabText == "ВЫЛЕТ") {
+            $(".flight-direction-header b").text("Направление");
+            $(".time-header b").text("Время вылета");
+        }
+        else {
+            $(".flight-direction-header b").text("Город вылета");
+            $(".time-header b").text("Время прилета");
+        } 
+    }  
 };
 
 //функция отображения авиарейсов по выбранному типу или периоду

@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var scheduleSchema = mongoose.Schema({	
-	_id: Date,
+	date: Date,
 	departure: [
 	    {
 		    type_of_flight: String,
