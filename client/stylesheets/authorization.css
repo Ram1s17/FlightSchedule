@@ -43,7 +43,6 @@ input[type="text"] {
     width: 200px;
     outline: none;
     color: white;
-    transition: 0.25s;
 }
 
 input[type="text"]:focus {
@@ -58,7 +57,7 @@ input::-webkit-input-placeholder {
     color: white;
 }
 
-#authorization-button {
+#autho-button {
     border: 0;
     background: none;
     display: block;
@@ -73,7 +72,7 @@ input::-webkit-input-placeholder {
     cursor: pointer;
 }
 
-#authorization-button:hover {
+#autho-button:hover {
     background-color: #77A8A3;
 }
 

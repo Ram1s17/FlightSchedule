@@ -1,7 +1,8 @@
 var main = function () {
-	"use strict";
-    $("#authorization-button").on("click", function() {
-		var username = $("input[type='text']").val();
+	"use strict"
+    $("#autho-button").on("click", function(e) {
+		e.preventDefault();
+		var username = $(".autho-box input[type='text']").val();
 		if (username !== null && username.trim() !== "") {
 			$.ajax({
 				'url': '/users/' + username,
@@ -10,16 +11,15 @@ var main = function () {
 				window.location.replace('users/' + username + '/');
 			}).fail(function(jqXHR, textStatus, error) {
 				console.log(error);
-				alert("ОШИБКА! Пользователь не существет! (Cтатус ошибки: " + jqXHR.status + " – " + jqXHR.textStatus + ")");	
+				alert("ОШИБКА! Пользователь не существет!");	
 			});
 		}
 		else
 			alert("Имя пользователя не задано!");
 	});
-
     $('input').keydown(function(e) {
         if(e.keyCode === 13) {
-            $("#authoization-button").click();
+            $("#autho-button").click();
         }
     });
 };

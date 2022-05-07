@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Панель администратора</title>
+    <!--<link rel="stylesheet"  type="text/css"  href="stylesheets/reset.css">-->
+    <link rel="stylesheet"  type="text/css"  href="/stylesheets/administrator.css">
+    <link rel="shortcut icon" href="/img/airplane-flight.png" type="image/png">
+  </head>
+  <body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="header-container">
+                <div class="header-logo">
+                    <div class="header-img">
+                        <img src="/img/airplane-flight.png">
+                    </div>
+                    <div class="header-banner">
+                        <h1>Расписание авиарейсов</h1>
+                    </div>
+                </div>
+                <div class="header-logo">
+                    <div class="header-img">
+                        <img src="/img/admin.png">
+                    </div>
+                    <div class="header-banner">
+                        <h2>Режим администратора</h2>
+                    </div>
+                </div>
+                <div class="header-clock">
+                    <iframe  frameborder="no" scrolling="no" width="280" height="150" src="https://yandex.ru/time/widget/?geoid=213&lang=ru&layout=horiz&type=digital&face=serif"></iframe>                
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="main-container">
+                <div class="main-panel">
+                    <h2>ПАНЕЛЬ УПРАВЛЕНИЯ</h2>
+                    <form>
+                        <input class="input-field" type="text" placeholder="Логин модератора" value="">
+                        <button class="add-moderator-button">Создать новый аккаунт</button>
+                        <button class="update-moderator-button">Изменить имя пользователя</button>
+                        <button class="delete-moderator-button">Удалить аккаунт</button>
+                    </form>
+                </div>
+                <img src="/img/admin-panel.png">
+                <div class="main-moderators-list">
+                    <h2>Список модераторов</h2>
+                    <div class="moderators-list">
+                        
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <div class="footer-image">
+                        <img src="/img/flight-footer.png" width="20%" height="20%">
+                    </div>
+                    <div class="footer-banner">
+                        <h5>© 2022 Расписание авиарейсов</h5>
+                    </div>
+                </div>
+                <div class="footer-information"> 
+                    <h3>Контакты для связи:</h3> 
+                    <p>Студент группы 4311 Бариева Алия</p> 
+                    <p><b>Почта: </b><i>aliya.barieva.01@mail.ru</i></p>
+                    <p><b>Телефон: </b><i>+7 (927) 243-59-54</i></p>
+                </div>
+                <div class="footer-sitemap"> 
+                    <h3>Карта сайта</h3>
+                    <ul>
+                        <li><a href="/authorization.html">Вернуться к авторизации</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social-networks">
+                    <h3>Ищите меня в социальных сетях:</h3> 
+                    <div class="social-links">
+                        <a href="https://vk.com/aliyabarieva"><img src="/img/vk.png" width="10%" height="10%"></a>
+                        <a href="https://t.me/aliyabarievaa"><img src="/img/telegram.png" width="10%" height="10%"></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="/javascripts/administrator.js"></script>
+    </div>
+  </body>
+</html> 

@@ -6,6 +6,7 @@ var express = require("express"),
 	app = express();
 
 app.use('/', express.static(__dirname + "/client"));
+// app.use('/users/:username', express.static(__dirname + "/client"));
 app.use(express.urlencoded({ extended: true}));
 
 mongoose.connect('mongodb://localhost/flight_schedule', {
@@ -25,4 +26,9 @@ app.get("/flights", ScheduleController.searchByFlight);
 app.get("/directions", ScheduleController.searchByDirection);
 app.get("/cities", ScheduleController.searchByDepartureCity);
 
+app.get("/users.json", UserController.index);
+app.get("/user/:username", UserController.search);
 app.get("/users/:username", UserController.show);
+app.post("/users", UserController.create);
+app.put("/users/:username", UserController.update);
+app.delete("/users/:username", UserController.destroy);
