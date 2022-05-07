@@ -4,6 +4,8 @@ var currentDate = new Date;
 var datesDict = new Map();
 var currentTabText, currentDateTabText, tabContent;
 var selectedType, selectedPeriod;
+var isSearched = false;
+var searchResult;
 
 //функция получения даты в формате "ГГГГ-MM-ДД"
 var convertDateToString = function(date) {
@@ -132,7 +134,15 @@ var getFlightSchedule = function() {
 var selectFlights = function() {
     selectedType = $("#type-of-flight-select option:selected").text();
     selectedPeriod = $("#execution-period-select option:selected").text();
-    getFlightSchedule();
+    if (!isSearched)  {
+        getFlightSchedule();
+    }
+    else {
+        $(".main-tabs-table-cells").toArray().forEach(function(row){
+            row.remove();
+        });
+        createScheduleAfterSearch(searchResult);
+    }
     if (selectedType == "Все рейсы" && selectedPeriod == "Все рейсы") {
         return;
     }
@@ -173,6 +183,98 @@ var getFlightsByPeriod = function() {
     });
 };
 
+//функция отображения авиарейсов на основе поиска
+var createScheduleAfterSearch = function(result){
+    var $main_tabs_table_cells;
+    var $type_of_flight_cell, $flight_direction_cell, $airline_cell, $flight_cell, 
+        $time_cell, $type_of_airplane_cell, $execution_period_cell;
+
+    $main_tabs_table_cells = $("<div class='main-tabs-table-cells'>");
+    $type_of_flight_cell = $("<div class='type-of-flight-cell'>");
+    $type_of_flight_cell.text(result.type_of_flight);
+    $main_tabs_table_cells.attr("type", result.type_of_flight );
+
+    $flight_direction_cell = $("<div class='flight-direction-cell'>");
+    $time_cell = $("<div class='time-cell'>");
+
+    if (currentTabText == "ВЫЛЕТ") {
+        $flight_direction_cell.text(result.direction);
+        $time_cell.text(result.departure_time.slice(11,16));
+    }
+    else {
+        $flight_direction_cell.text(result.departure_city);
+        $time_cell.text(result.arrival_time.slice(11,16));
+    }
+
+    $airline_cell = $("<div class='airline-cell'>");
+    $airline_cell.text(result.airline);
+
+    $flight_cell = $("<div class='flight-cell'>");
+    $flight_cell.text(result.flight);
+
+    $type_of_airplane_cell = $("<div class='type-of-airplane-cell'>");
+    $type_of_airplane_cell.text(result.type_of_airplane);
+
+    $execution_period_cell = $("<div class='execution-period-cell'>");
+    $execution_period_cell.text(result.execution_period);
+    $main_tabs_table_cells.attr("period", result.execution_period);
+
+    $main_tabs_table_cells.append($type_of_flight_cell);
+    $main_tabs_table_cells.append($flight_direction_cell);
+    $main_tabs_table_cells.append($airline_cell);
+    $main_tabs_table_cells.append($flight_cell);
+    $main_tabs_table_cells.append($time_cell);
+    $main_tabs_table_cells.append($type_of_airplane_cell);
+    $main_tabs_table_cells.append($execution_period_cell);
+
+    $(".main-container").append( $main_tabs_table_cells);    
+};
+
+//функция поиска
+var search = function(input_value) {
+    $(".main-tabs-table-cells").toArray().forEach(function(row){
+        row.remove();
+    });
+    var body = {date: datesDict.get(currentDateTabText), flight: input_value.toUpperCase(), direction: input_value.toUpperCase(), departure_city: input_value.toUpperCase()};
+    $.get("/directions", body, function(directions){
+        if (directions.length == 0)
+        {
+            $.get("/cities", body, function(cities){
+                if (cities.length == 0) {
+                    $.get("/flights", body, function(flights){
+                        if (flights.length != 0) {
+                            if (flights[0].departure == null) {
+                                searchResult = flights[0].arrival[0];
+                                createScheduleAfterSearch(flights[0].arrival[0]);
+                                $("#type-of-flight-select").change();
+                                $("#execution-period-select").change();
+                            }
+                            else {
+                                searchResult = flights[0].departure[0];
+                                createScheduleAfterSearch(flights[0].departure[0]);
+                                $("#type-of-flight-select").change();
+                                $("#execution-period-select").change();
+                            }
+                        }
+                    });
+                }
+                else {
+                    searchResult = cities[0].arrival[0];
+                    createScheduleAfterSearch(cities[0].arrival[0]);
+                    $("#type-of-flight-select").change();
+                    $("#execution-period-select").change();
+                }
+            });
+        }
+        else {
+            searchResult = directions[0].departure[0];
+            createScheduleAfterSearch(directions[0].departure[0]);
+            $("#type-of-flight-select").change();
+            $("#execution-period-select").change();
+        }
+    });
+}
+
 var main = function () { 
     "use strict";
     var flag = true;
@@ -199,6 +301,8 @@ var main = function () {
     getFlightsByPeriod(); 
     $(".main-tabs-items a span").toArray().forEach(function (tabElement) {
         $(tabElement).on("click", function () {
+            isSearched = false;
+            $(".input-field").val("");
             var $tabElement = $(tabElement);
             $(".main-tabs-items a span").removeClass("active");
             $(".main-tabs-items a").removeClass("active");
@@ -213,6 +317,18 @@ var main = function () {
         if (flag) {
             $(".main-tabs-departure-and-arrival .tab-active a").trigger("click");
             flag = false;
+        }
+    });
+    $(".input-field").on("input",function(ev){
+        isSearched = true;
+        if($(ev.target).val() != "") {
+            search($(".input-field").val());
+        }
+        else {
+            getFlightSchedule();
+            isSearched = false;
+            $("#type-of-flight-select").change();
+            $("#execution-period-select").change();
         }
     });
 };

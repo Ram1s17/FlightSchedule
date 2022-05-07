@@ -99,8 +99,8 @@ main {
     -webkit-text-stroke: 0.4px black;
 }
 
-.main-tabs-departure-and-arrival div :hover {
-    background-color: #77A8A3;
+.main-tabs-departure-and-arrival a :hover {
+    font-size: 110%;
 }
 
 .main-tabs-departure-and-arrival  a{

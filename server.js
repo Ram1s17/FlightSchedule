@@ -20,3 +20,6 @@ mongoose.connect('mongodb://localhost/flight_schedule', {
 http.createServer(app).listen(3000);
 
 app.get("/data.json", ScheduleController.index);
+app.get("/flights", ScheduleController.searchByFlight);
+app.get("/directions", ScheduleController.searchByDirection);
+app.get("/cities", ScheduleController.searchByDepartureCity);
