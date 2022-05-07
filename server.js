@@ -2,6 +2,7 @@ var express = require("express"),
 	http = require("http"),
     mongoose = require("mongoose"),
     ScheduleController = require("./controllers/schedule_controller.js"),
+	UserController = require("./controllers/user_controller.js"),
 	app = express();
 
 app.use('/', express.static(__dirname + "/client"));
@@ -23,3 +24,5 @@ app.get("/data.json", ScheduleController.index);
 app.get("/flights", ScheduleController.searchByFlight);
 app.get("/directions", ScheduleController.searchByDirection);
 app.get("/cities", ScheduleController.searchByDepartureCity);
+
+app.get("/users/:username", UserController.show);
