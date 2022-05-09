@@ -74,7 +74,6 @@ var main = function (UsersObjects) {
                                 'url': '/users/' + username,
                                 'type': 'DELETE',
                             }).done(function(responde) {
-                                $(".input-username-field").val("");
                                 alert('Пользователь успешно удален!');
                             }).fail(function(jqXHR, textStatus, error) {
                                 alert("Ошибка! Статус: " + jqXHR.status + " – " + jqXHR.textStatus);	

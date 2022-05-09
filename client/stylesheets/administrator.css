@@ -94,6 +94,7 @@ main .main-panel form {
 .input-field {
     width: 80%;
     font-size: 105%;
+    text-align: center;
     color: black;
     border: 2px solid;
     padding: 5px 5px;
