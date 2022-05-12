@@ -282,40 +282,40 @@ var main = function () {
     $("#type-of-flight-select option:nth-child(1)").attr("selected", "selected");
     $("#execution-period-select").attr("selected", null);
     $("#execution-period-select option:nth-child(1)").attr("selected", "selected");
-    $(".main-tabs-departure-and-arrival a").toArray().forEach(function (element) {
+    $(".main-tabs-departure-and-arrival div").toArray().forEach(function (element) {
         $(element).on("click", function () {
 	        var $element = $(element);
 	        $(".main-tabs-departure-and-arrival div").removeClass("tab-active");
-	        $element.parent().addClass("tab-active");
+	        $element.addClass("tab-active");
             if ($(".tab-active a").text() == "ВЫЛЕТ") {
                 currentTabText = "ВЫЛЕТ";
             }
             else {
                 currentTabText = "ПРИЛЕТ";
             }
-            $(".main-tabs-items a span.active").trigger("click"); 
+            $(".main-tabs-items a.active").trigger("click"); 
             return false;
 	    });
     });
     getFlightsByType();
     getFlightsByPeriod(); 
-    $(".main-tabs-items a span").toArray().forEach(function (tabElement) {
+    $(".main-tabs-items a").toArray().forEach(function (tabElement) {
         $(tabElement).on("click", function () {
             isSearched = false;
             $(".input-field").val("");
             var $tabElement = $(tabElement);
             $(".main-tabs-items a span").removeClass("active");
             $(".main-tabs-items a").removeClass("active");
-            $tabElement.parent().addClass("active"); 
+            $tabElement.children().addClass("active"); 
             $tabElement.addClass("active");
-            currentDateTabText = $tabElement.text();
+            currentDateTabText = $tabElement.children().text();
             getFlightSchedule();
             $("#type-of-flight-select").change();
             $("#execution-period-select").change();
             return false;
         });
         if (flag) {
-            $(".main-tabs-departure-and-arrival .tab-active a").trigger("click");
+            $(".main-tabs-departure-and-arrival .tab-active").trigger("click");
             flag = false;
         }
     });
