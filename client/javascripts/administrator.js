@@ -11,17 +11,17 @@ var main = function (UsersObjects) {
 			$.post("/users", newUser, function(result) {
 				console.log(result);
 			}).done(function(response) {
-				alert('Аккаунт создан!');
+				alert('Аккаунт успешно создан!');
 			}).fail(function(jqXHR, textStatus, error) {
 				if (jqXHR.status === 501) {
-					alert("Такой пользователь уже существует!");
+					alert("Модератор с таким логином уже существует!");
 				} else {					
 					alert("Ошибка! Статус: " + jqXHR.status + " – " + jqXHR.textStatus);	
 				}
 			});
 		}
 		else
-            alert("Имя пользователя не задано!");
+            alert("Логин не задан!");
 	});
 
 	$(".update-moderator-button").on("click", function(e) {
@@ -31,21 +31,21 @@ var main = function (UsersObjects) {
             $.get("/user/" + username, function(user){
                 if (user != null) {
                     if (user.role != "Администратор") {
-                        var newUsername = prompt("Введите новое имя пользователя", $(".input-username-field").val());
+                        var newUsername = prompt("Введите новый логин модератора", $(".input-username-field").val());
                         if (newUsername !== null && newUsername.trim() !== "") {
                             $.ajax({
                                 'url': '/users/' + username,
                                 'type': 'PUT',
                                 'data': {'username': newUsername}
                             }).done(function(responde) {
-                                alert('Имя пользователя успешно изменено!');
+                                alert('Логин успешно изменен!');
                             }).fail(function(jqXHR, textStatus, error) {
                                 alert("Ошибка! Статус: " + jqXHR.status + " – " + jqXHR.textStatus);	
                             });
                             location.reload();
                         }
                         else 
-                            alert("Новое имя пользователя не задано!");
+                            alert("Новый логин не задан!");
                     }
                     else {
                         alert("Изменение аккаунта администратора запрещено!");
@@ -53,13 +53,13 @@ var main = function (UsersObjects) {
                     }
                 }
                 else {
-                    alert("Данный пользователь отсутствует в системе!");
+                    alert("Модератор с данным логином отсутствует в системе!");
                     $(".input-field").val("");
                 }
             });
 		}
         else
-            alert("Имя пользователя не задано!");
+            alert("Логин не задан!");
 	});
 
 	$(".delete-moderator-button").on("click", function(e) {
@@ -69,12 +69,12 @@ var main = function (UsersObjects) {
             $.get("/user/" + username, function(user){
                 if (user != null) {
                     if (user.role != "Администратор") {
-                        if (confirm("Вы уверены, что хотите удалить пользователя " + username + "?")) {
+                        if (confirm("Вы уверены, что хотите удалить аккаунт модератора " + username + "?")) {
                             $.ajax({
                                 'url': '/users/' + username,
                                 'type': 'DELETE',
                             }).done(function(responde) {
-                                alert('Пользователь успешно удален!');
+                                alert('Аккаунт успешно удален!');
                             }).fail(function(jqXHR, textStatus, error) {
                                 alert("Ошибка! Статус: " + jqXHR.status + " – " + jqXHR.textStatus);	
                             });
@@ -87,13 +87,13 @@ var main = function (UsersObjects) {
                     }
                 }
                 else {
-                    alert("Данный пользователь отсутствует в системе!");
+                    alert("Модератор с данным логином отсутствует в системе!");
                     $(".input-field").val("");
                 }
             });
 		}
         else
-            alert("Имя пользователя не задано!");
+            alert("Логин не задан!");
 	});
 }
 
