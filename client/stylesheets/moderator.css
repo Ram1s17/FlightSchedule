@@ -25,3 +25,75 @@
     flex-direction: column;
     align-items: center;
 }
+
+.demo-window h2 {
+    margin-bottom: 20px;
+}
+
+.sсhedule-table {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sсhedule-table h3 {
+    font-weight: normal;
+}
+
+.main-table-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    background-color: #2D5D62;
+    margin: 0px 20px 0px 20px;
+    border-style: solid;
+    width: 100%;
+}
+
+.main-table-header div {
+    flex: 0 1 14.285%;
+    font-size: 110%;
+    color: black;
+    font-style: solid;
+}
+
+.main-table-cells {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    background-color: #B9D3CD;
+    margin: 0px 20px 0px 20px;
+    border-style: none solid solid solid;
+    width: 100%;
+}
+
+.main-table-cells div {
+    flex: 0 1 14.285%;
+    padding: 7px;
+    flex-direction: column;
+    font-size: 110%;
+    color: black;
+    word-break: break-all;
+}
+
+#input-date-field, #departure-arrival-select{
+    text-align: center;
+    width: 185px;
+    font-size: 95%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-right: 10px;
+}
+
+#departure-arrival-select{
+   height: 25px;
+}
+
+.search-schedule-button, .delete-schedule-button, .cancel-button, .delete-selected-schedule-button {
+    font-size: 95%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-right: 10px;
+}

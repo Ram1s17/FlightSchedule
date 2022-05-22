@@ -85,4 +85,20 @@ ScheduleController.searchByDepartureCity = function (req, res) {
 	});
 };
 
+ScheduleController.search = function (req, res) {
+	var date = req.params.date;
+	ScheduleModel.findOne({"date":new Date(date)}, function (err, schedule) {
+		if (err !== null) { 
+			console.log("ERROR" + err);
+			res.status(500).json(err);
+		} else {
+			if (schedule !=  null) {
+				res.status(200).json(schedule);
+			} else {
+				res.json(schedule);
+			}
+		}
+	});
+};
+
 module.exports = ScheduleController;
