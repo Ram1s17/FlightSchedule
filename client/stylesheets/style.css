@@ -99,10 +99,6 @@ main {
     -webkit-text-stroke: 0.4px black;
 }
 
-.main-tabs-departure-and-arrival a :hover {
-    font-size: 110%;
-}
-
 .main-tabs-departure-and-arrival  a{
     font-size: 140%;
     text-decoration: none;
@@ -146,12 +142,6 @@ main {
     text-decoration: none;
     font-size: 110%;
     color: white;
-}
-
-.main-tabs-items a:hover {
-    border: solid 2px;
-    border-color: black;
-    border-radius: 10px 10px 10px 10px;
 }
 
 .main-tabs-items .active {

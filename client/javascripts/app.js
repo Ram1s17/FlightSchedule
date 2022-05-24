@@ -19,11 +19,6 @@ var convertDateToString = function(date) {
 
 //функция формирования вкладок
 var tabsFormation = function() {
-     //добавление вчерашней даты в словарь
-    var yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    var textYesterdayDate = convertDateToString(yesterday);
-    datesDict.set("Вчера, " + yesterday.getDate() + "." + textYesterdayDate.slice(5,7), textYesterdayDate);
     //добавление сегодняшней даты в словарь
     var textCurrentDate = convertDateToString(currentDate);
     datesDict.set("Сегодня, " + currentDate.getDate() + "." + textCurrentDate.slice(5,7), textCurrentDate);
@@ -32,6 +27,10 @@ var tabsFormation = function() {
     tomorrow.setDate(tomorrow.getDate() + 1);
     var textTommorowDate = convertDateToString(tomorrow);
     datesDict.set("Завтра, " + tomorrow.getDate() + "." + textTommorowDate.slice(5,7), textTommorowDate);
+    //добавление послезавтрашней даты в словарь
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var textDateAfterTommorow = convertDateToString(tomorrow);
+    datesDict.set("Послезавтра, " + tomorrow.getDate() + "." + textDateAfterTommorow.slice(5,7), textDateAfterTommorow);
     //map iterator с ключами словаря
     var days = datesDict.keys();
     //формирование вкладок на странице
