@@ -58,6 +58,9 @@ var getFlightSchedule = function() {
         if (currentTabText == "ВЫЛЕТ") {
             $(".flight-direction-header b").text("Направление");
             $(".time-header b").text("Время вылета");
+            (currentSchedule.departure).sort(function(a,b){
+                return new Date(a.departure_time) - new Date(b.departure_time);
+            });
             (currentSchedule.departure).forEach(function(departureObject) {
                 $main_tabs_table_cells = $("<div class='main-tabs-table-cells'>");
                 $type_of_flight_cell = $("<div class='type-of-flight-cell'>");
@@ -89,6 +92,9 @@ var getFlightSchedule = function() {
         else {
             $(".flight-direction-header b").text("Город вылета");
             $(".time-header b").text("Время прилета");
+            (currentSchedule.arrival).sort(function(a,b){
+                return new Date(a.arrival_time) - new Date(b.arrival_time);
+            });
             (currentSchedule.arrival).forEach(function(arrivalObject) {
                 $main_tabs_table_cells = $("<div class='main-tabs-table-cells'>");
                 $type_of_flight_cell = $("<div class='type-of-flight-cell'>");

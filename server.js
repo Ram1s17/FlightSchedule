@@ -27,6 +27,16 @@ app.get("/arrival_flights", ScheduleController.searchByArrivalFlight);
 app.get("/directions", ScheduleController.searchByDirection);
 app.get("/cities", ScheduleController.searchByDepartureCity);
 app.get("/schedule/:date", ScheduleController.search);
+app.post("/newScheduleWithFlight", ScheduleController.createNewScheduleWithFlight);
+app.post("/newDepartureFlight/:date", ScheduleController.createNewDepartureFlight);
+app.post("/newArrivalFlight/:date", ScheduleController.createNewArrivalFlight);
+app.put("/departureFlight", ScheduleController.updateDepartureFlight);
+app.put("/arrivalFlight", ScheduleController.updateArrivalFlight);
+app.delete("/departureFlight/:date", ScheduleController.deleteDepartureFlight);
+app.delete("/arrivalFlight/:date", ScheduleController.deleteArrivalFlight);
+app.delete("/departureSchedule/:date", ScheduleController.destroyDepartureSchedule);
+app.delete("/arrivalSchedule/:date", ScheduleController.destroyArrivalSchedule);
+app.delete("/schedule/:date", ScheduleController.destroySchedule);
 
 app.get("/users.json", UserController.index);
 app.get("/user/:username", UserController.search);
